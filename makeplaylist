@@ -1,0 +1,61 @@
+#!/bin/bash
+# Make a playlist in pwd.
+# By XDRosenheim
+# Version: 2.0
+# Much overhaul.
+# Many changes.
+# Changelist:
+# - sort
+# + shuf
+# Note:
+# "shuf" should be faster than "sort"
+
+mypath=`realpath $0`
+cd `dirname $mypath`
+scriptPwd=$(pwd)
+
+
+randomize ()
+{
+	shuf playlist.txt -o playlist.txt
+	read  -p "View list? " viewyn
+	case $viewyn in
+	    [Yy] | Yes | YES | yes ) cat playlist.txt ;;
+        [Nn] | No | NO | no ) break;;
+	    * ) echo "Please answer yes or no.";;
+	esac
+	exit 0
+}
+
+makelist ()
+{
+	echo "Making a playlist."
+	# Everything! No exceptions! (Just only MP3s)
+	find $scriptPwd/monstercat -name '*mp3' -type f >> playlist.txt
+	find $scriptPwd/NoCopyrightSounds -name '*mp3' -type f >> playlist.txt
+	read -p "Randomize the playlist? [y/N]" rndyn
+	case $rndyn in
+		[Yy] | Yes | YES | yes | ye | Ye | YE | YEAH | Yeah | yeah ) randomize;;
+		* ) break;;
+	esac
+}
+
+while [ -f playlist.txt ]; do
+    read -p "A playlist is already present, do you want to make a new one? " yeorno
+    case $yeorno in
+        [Yy] | yes | YES | Yes ) rm playlist.txt; makelist;;
+        [Nn] | no | No | NO | q ) echo "K."; exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+##Older versions
+##It's fun how little it takes :)
+##Version 1.1
+#work_dir=$(pwd)
+#find $work_dir -name '*mp3' -type f > tmpfile
+#sort --random-sort "$work_dir"tmpfile > playlist.txt
+#rm tmpfile
+#
+##Version 1.0
+#find ~/music -name '*.mp3' -type f > playlist.txt
