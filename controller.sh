@@ -2,6 +2,7 @@
 #Tool to change song streaming with EZStream, refresh playlist, or kill instance
 #Ethan Irish
 #1/22/2014
+#https://allthingsgeek.wordpress.com/2009/06/01/stream-media-with-icecast-and-ezstream/
 #Edit by XDRosenheim
 
 header="\n %4s %9s\n"
@@ -19,7 +20,7 @@ do
 	printf "$header" "PID" "SERVICE"
 	printf " $services"
 	printf "\n"
-	echo -n "Please select a PID to change status: "
+	echo -n "Select PID: "
 	read pid
 	if [[ -z "$pid" ]]; then
 		echo "\"Nothing\" is not a valid PID."
