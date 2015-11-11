@@ -1,5 +1,5 @@
 #!/bin/bash
-# Make a playlist in pwd.
+# Make a playlist.
 # By XDRosenheim
 # Version: 2.0
 # Much overhaul.
@@ -20,7 +20,7 @@ randomize ()
 	shuf playlist.txt -o playlist.txt
 	read  -p "View list? " viewyn
 	case $viewyn in
-	    [Yy] | Yes | YES | yes ) cat playlist.txt ;;
+        [Yy] | Yes | YES | yes ) cat playlist.txt ;;
         [Nn] | No | NO | no ) break;;
 	    * ) echo "Please answer yes or no.";;
 	esac
